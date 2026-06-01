@@ -1,468 +1,873 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Abdulwakeel Ibraheem - Computational Mathematics Graduate specializing in Machine Learning and Data Science. View my professional CV and portfolio.">
-    <meta name="author" content="Abdulwakeel Ibraheem">
-    <title>Abdulwakeel Ibraheem | Computational Mathematics Graduate</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abdulwakeel Ibraheem — Developer & Mathematician</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:    #0e1a14;
+  --paper:  #f2ede4;
+  --sage:   #2d6a4f;
+  --mint:   #74c69d;
+  --gold:   #c9a84c;
+  --rust:   #b5451b;
+  --light:  #e9f5ee;
+  --muted:  #7a8c7e;
+  --border: rgba(45,106,79,.18);
+  --mono:   'DM Mono', monospace;
+  --serif:  'Instrument Serif', serif;
+  --sans:   'Syne', sans-serif;
+}
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  overflow-x: hidden;
+}
+a { color:inherit; text-decoration:none; }
+::selection { background: var(--mint); color: var(--ink); }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #2d2d2d;
-            background: #f0f2f5;
-        }
+/* ── NOISE OVERLAY ── */
+body::before {
+  content:'';
+  position:fixed; inset:0; z-index:999; pointer-events:none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity:.4;
+}
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+/* ── CURSOR ── */
+.cursor {
+  width:10px; height:10px;
+  background: var(--sage);
+  border-radius:50%;
+  position:fixed; pointer-events:none; z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:transform .1s, width .2s, height .2s, background .2s;
+  mix-blend-mode:multiply;
+}
+.cursor.big { width:40px; height:40px; background: var(--mint); opacity:.5; }
 
-        /* Header Section */
-        header {
-            background: linear-gradient(135deg, #1a2a3e 0%, #0d1c2a 100%);
-            color: white;
-            padding: 40px;
-            border-radius: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:500;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.25rem 3rem;
+  background: rgba(242,237,228,.85);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--mono);
+  font-size:.85rem;
+  color: var(--sage);
+  letter-spacing:.08em;
+}
+.nav-links {
+  display:flex; gap:2.5rem; align-items:center;
+}
+.nav-links a {
+  font-size:.8rem; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase;
+  color: var(--muted); transition:color .2s;
+}
+.nav-links a:hover { color: var(--sage); }
+.nav-cta {
+  font-family: var(--mono);
+  font-size:.78rem; padding:.45rem 1.1rem;
+  border:1.5px solid var(--sage); border-radius:3px;
+  color: var(--sage); transition:all .2s;
+}
+.nav-cta:hover { background: var(--sage); color: var(--paper); }
 
-        .header-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
+/* ── HERO ── */
+.hero {
+  min-height:100vh;
+  display:grid; grid-template-columns:1fr 1fr;
+  position:relative; overflow:hidden;
+}
+.hero-left {
+  display:flex; flex-direction:column; justify-content:center;
+  padding:8rem 3rem 4rem 3rem;
+  position:relative; z-index:1;
+}
+.hero-tag {
+  font-family: var(--mono);
+  font-size:.75rem; letter-spacing:.15em;
+  color: var(--sage); margin-bottom:1.5rem;
+  display:flex; align-items:center; gap:.6rem;
+}
+.hero-tag::before {
+  content:''; display:block;
+  width:28px; height:1.5px; background:var(--sage);
+}
+h1 {
+  font-family: var(--serif);
+  font-size:clamp(3rem, 5.5vw, 5rem);
+  line-height:1.05;
+  color: var(--ink); margin-bottom:1.5rem;
+  font-style:italic;
+}
+h1 span { color: var(--sage); font-style:normal; font-family:var(--sans); font-weight:800; }
+.hero-desc {
+  font-size:1.05rem; line-height:1.7;
+  color: var(--muted); max-width:420px;
+  margin-bottom:2.5rem;
+}
+.hero-btns { display:flex; gap:1rem; flex-wrap:wrap; }
+.btn-primary {
+  background: var(--sage); color: var(--paper);
+  padding:.75rem 1.8rem; font-size:.85rem;
+  font-weight:700; letter-spacing:.06em;
+  border:none; border-radius:3px; cursor:pointer;
+  transition:all .25s; display:inline-block;
+}
+.btn-primary:hover { background: var(--ink); transform:translateY(-2px); }
+.btn-outline {
+  background:transparent; color: var(--sage);
+  padding:.75rem 1.8rem; font-size:.85rem;
+  font-weight:700; letter-spacing:.06em;
+  border:1.5px solid var(--sage); border-radius:3px;
+  cursor:pointer; transition:all .25s; display:inline-block;
+}
+.btn-outline:hover { background: var(--light); }
 
-        .name-title h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
+.hero-right {
+  display:flex; align-items:center; justify-content:center;
+  padding:8rem 3rem 4rem 1rem;
+  position:relative;
+}
+.hero-card {
+  background: var(--ink);
+  border-radius:4px;
+  padding:2.5rem;
+  max-width:380px; width:100%;
+  position:relative;
+  box-shadow: 12px 12px 0 var(--sage);
+}
+.hero-card::before {
+  content:'// profile.js';
+  font-family: var(--mono);
+  font-size:.72rem; color: var(--muted);
+  position:absolute; top:.9rem; left:1.2rem;
+}
+.code-line {
+  font-family: var(--mono);
+  font-size:.82rem; line-height:2;
+  color:#9ab8a0; margin-top:1.8rem;
+}
+.code-key { color:#74c69d; }
+.code-str { color:#c9a84c; }
+.code-num { color:#b5451b; }
+.code-bool { color:#8db4f5; }
 
-        .name-title p {
-            font-size: 1.2rem;
-            color: #6ab0f5;
-            font-weight: 500;
-        }
+/* Background geometric shapes */
+.hero::after {
+  content:'';
+  position:absolute; top:10%; right:3%;
+  width:320px; height:320px;
+  border:1.5px solid var(--border);
+  border-radius:50%;
+  pointer-events:none;
+  animation: spin 40s linear infinite;
+}
+@keyframes spin { to { transform:rotate(360deg); } }
 
-        .contact-info {
-            text-align: right;
-        }
+/* ── STATS STRIP ── */
+.stats {
+  background: var(--sage);
+  display:flex; align-items:center; justify-content:center;
+  gap:5rem; padding:2.5rem 3rem;
+  flex-wrap:wrap;
+}
+.stat { text-align:center; }
+.stat-num {
+  font-family: var(--serif);
+  font-size:2.8rem; font-style:italic;
+  color: var(--paper);
+}
+.stat-label {
+  font-family: var(--mono);
+  font-size:.72rem; color:rgba(242,237,228,.6);
+  letter-spacing:.1em; margin-top:.2rem;
+}
 
-        .contact-info p {
-            margin: 5px 0;
-            font-size: 0.9rem;
-        }
+/* ── SECTIONS SHARED ── */
+section { padding:6rem 3rem; }
+.section-label {
+  font-family: var(--mono);
+  font-size:.72rem; letter-spacing:.18em;
+  color: var(--sage); text-transform:uppercase;
+  display:flex; align-items:center; gap:.6rem;
+  margin-bottom:1rem;
+}
+.section-label::before {
+  content:''; display:block;
+  width:20px; height:1.5px; background:var(--sage);
+}
+h2 {
+  font-family: var(--serif);
+  font-size:clamp(2rem,4vw,3.2rem);
+  font-style:italic; line-height:1.15;
+  color: var(--ink); margin-bottom:3rem;
+}
 
-        .contact-info a {
-            color: #6ab0f5;
-            text-decoration: none;
-        }
+/* ── ABOUT ── */
+.about { background: var(--light); }
+.about-grid {
+  display:grid; grid-template-columns:3fr 2fr; gap:5rem;
+  max-width:1100px; margin:0 auto;
+  align-items:start;
+}
+.about-text p {
+  font-size:1.05rem; line-height:1.8;
+  color: var(--muted); margin-bottom:1.2rem;
+}
+.about-text p strong { color: var(--ink); }
+.about-aside {}
+.aside-block {
+  border-left:3px solid var(--sage);
+  padding:.8rem 1.2rem; margin-bottom:1.5rem;
+  background:white;
+}
+.aside-block h4 {
+  font-family:var(--mono); font-size:.72rem;
+  letter-spacing:.12em; text-transform:uppercase;
+  color:var(--sage); margin-bottom:.5rem;
+}
+.aside-block p {
+  font-size:.88rem; color:var(--muted); line-height:1.6;
+}
 
-        .contact-info a:hover {
-            text-decoration: underline;
-        }
+/* ── PROJECTS ── */
+.projects { background:var(--paper); }
+.projects-inner { max-width:1100px; margin:0 auto; }
+.project-featured {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:0; border:1.5px solid var(--border);
+  border-radius:4px; overflow:hidden;
+  margin-bottom:2.5rem;
+  transition:box-shadow .3s;
+}
+.project-featured:hover { box-shadow:8px 8px 0 var(--sage); }
+.project-screenshot {
+  background: var(--ink);
+  min-height:320px;
+  display:flex; align-items:center; justify-content:center;
+  position:relative; overflow:hidden;
+  padding:2rem;
+}
+.app-mockup {
+  width:100%; max-width:320px;
+  background:#122d42;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.08);
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.5);
+}
+.mockup-bar {
+  background:#0e2640; height:36px;
+  display:flex; align-items:center; padding:0 1rem; gap:.5rem;
+}
+.mockup-dot { width:8px; height:8px; border-radius:50%; }
+.mockup-content { padding:1rem; }
+.mockup-row {
+  background:rgba(20,184,166,.08); border-radius:4px;
+  height:10px; margin-bottom:.6rem;
+  border:1px solid rgba(20,184,166,.15);
+}
+.mockup-row.short { width:60%; }
+.mockup-row.medium { width:80%; }
+.mockup-stat-row {
+  display:grid; grid-template-columns:1fr 1fr 1fr 1fr;
+  gap:.4rem; margin:1rem 0;
+}
+.mockup-stat {
+  background:rgba(20,184,166,.12); border-radius:4px;
+  height:40px; border:1px solid rgba(20,184,166,.2);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:.6rem; color:#74c69d;
+}
+.project-info {
+  padding:2.5rem;
+  display:flex; flex-direction:column; justify-content:center;
+}
+.project-badge {
+  display:inline-flex; align-items:center; gap:.4rem;
+  background:rgba(45,106,79,.1); color:var(--sage);
+  font-family:var(--mono); font-size:.7rem;
+  padding:.3rem .75rem; border-radius:20px;
+  margin-bottom:1rem; width:fit-content;
+  letter-spacing:.06em;
+}
+.project-info h3 {
+  font-family:var(--sans); font-size:1.6rem; font-weight:800;
+  color:var(--ink); margin-bottom:.75rem;
+}
+.project-info p {
+  font-size:.92rem; line-height:1.7;
+  color:var(--muted); margin-bottom:1.5rem;
+}
+.tech-pills { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:1.5rem; }
+.pill {
+  font-family:var(--mono); font-size:.7rem;
+  background:var(--light); color:var(--sage);
+  padding:.25rem .7rem; border-radius:3px;
+  border:1px solid var(--border);
+}
+.feature-list { list-style:none; }
+.feature-list li {
+  font-size:.85rem; color:var(--muted);
+  padding:.3rem 0; display:flex; gap:.5rem; align-items:flex-start;
+}
+.feature-list li::before {
+  content:'→'; color:var(--sage); flex-shrink:0; font-family:var(--mono);
+}
 
-        /* Card Style for Sections */
-        .card {
-            background: white;
-            border-radius: 16px;
-            padding: 25px 30px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
+/* ── SKILLS ── */
+.skills-section { background:var(--light); }
+.skills-inner { max-width:1100px; margin:0 auto; }
+.skills-grid {
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:1.5rem;
+}
+.skill-card {
+  background:white; border:1.5px solid var(--border);
+  border-radius:4px; padding:1.5rem;
+  transition:all .25s;
+}
+.skill-card:hover {
+  border-color:var(--sage);
+  box-shadow:4px 4px 0 var(--mint);
+  transform:translate(-2px,-2px);
+}
+.skill-card-icon { font-size:1.6rem; margin-bottom:.75rem; }
+.skill-card h4 {
+  font-size:.8rem; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase;
+  color:var(--sage); margin-bottom:.75rem;
+  font-family:var(--mono);
+}
+.skill-tags { display:flex; flex-wrap:wrap; gap:.4rem; }
+.skill-tag {
+  font-size:.78rem; color:var(--ink);
+  background:var(--light); padding:.2rem .55rem;
+  border-radius:2px;
+}
 
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
+/* ── EXPERIENCE ── */
+.experience { background:var(--paper); }
+.exp-inner { max-width:900px; margin:0 auto; }
+.exp-item {
+  display:grid; grid-template-columns:140px 1fr;
+  gap:2.5rem; padding:2.5rem 0;
+  border-bottom:1px solid var(--border);
+}
+.exp-item:last-child { border-bottom:none; }
+.exp-date {
+  font-family:var(--mono); font-size:.78rem;
+  color:var(--muted); line-height:1.6;
+  padding-top:.2rem;
+}
+.exp-content h3 {
+  font-size:1.1rem; font-weight:700;
+  color:var(--ink); margin-bottom:.25rem;
+}
+.exp-org {
+  font-family:var(--mono); font-size:.8rem;
+  color:var(--sage); margin-bottom:.75rem;
+}
+.exp-bullets { list-style:none; }
+.exp-bullets li {
+  font-size:.9rem; color:var(--muted);
+  line-height:1.6; padding:.2rem 0;
+  padding-left:1rem; position:relative;
+}
+.exp-bullets li::before {
+  content:'–'; position:absolute; left:0;
+  color:var(--sage); font-family:var(--mono);
+}
 
-        .section-title {
-            font-size: 1.5rem;
-            color: #1a2a3e;
-            border-left: 5px solid #1a2a3e;
-            padding-left: 15px;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
+/* ── EDUCATION & CERTS ── */
+.edu-certs { background:var(--light); }
+.edu-certs-inner { max-width:1100px; margin:0 auto; }
+.edu-certs-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; }
+.edu-item { margin-bottom:2rem; }
+.edu-item h3 { font-size:1rem; font-weight:700; color:var(--ink); margin-bottom:.25rem; }
+.edu-item p { font-size:.88rem; color:var(--muted); line-height:1.6; }
+.cert-item {
+  display:flex; gap:.75rem; align-items:flex-start;
+  padding:.6rem 0; border-bottom:1px solid var(--border);
+}
+.cert-item:last-child { border-bottom:none; }
+.cert-dot {
+  width:7px; height:7px; border-radius:50%;
+  background:var(--sage); flex-shrink:0; margin-top:.35rem;
+}
+.cert-item p { font-size:.88rem; color:var(--muted); line-height:1.5; }
+.cert-item p strong { color:var(--ink); display:block; }
 
-        /* Skills Grid */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-        }
+/* ── CONTACT ── */
+.contact { background:var(--ink); }
+.contact-inner { max-width:700px; margin:0 auto; text-align:center; }
+.contact h2 { color:var(--paper); margin-bottom:1rem; }
+.contact p { color:var(--muted); font-size:1rem; line-height:1.7; margin-bottom:3rem; }
+.contact-links {
+  display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;
+  margin-bottom:3rem;
+}
+.contact-link {
+  font-family:var(--mono); font-size:.82rem;
+  padding:.65rem 1.4rem; border-radius:3px;
+  background:rgba(255,255,255,.07);
+  color:var(--paper); border:1px solid rgba(255,255,255,.12);
+  transition:all .2s; display:inline-flex; align-items:center; gap:.5rem;
+}
+.contact-link:hover {
+  background:var(--sage); border-color:var(--sage);
+}
+.contact-email {
+  font-family:var(--mono); font-size:1rem;
+  color:var(--mint); letter-spacing:.04em;
+}
 
-        .skill-category {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 12px;
-        }
+/* ── FOOTER ── */
+footer {
+  background:var(--ink);
+  border-top:1px solid rgba(255,255,255,.07);
+  padding:1.5rem 3rem;
+  display:flex; align-items:center; justify-content:space-between;
+}
+footer p {
+  font-family:var(--mono); font-size:.75rem;
+  color:rgba(242,237,228,.3);
+}
 
-        .skill-category h3 {
-            color: #1a2a3e;
-            margin-bottom: 10px;
-            font-size: 1rem;
-        }
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity:0; transform:translateY(28px);
+  transition:opacity .7s ease, transform .7s ease;
+}
+.reveal.visible { opacity:1; transform:none; }
 
-        .skill-category ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .skill-category li {
-            padding: 5px 0;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .skill-category li::before {
-            content: "▹";
-            position: absolute;
-            left: 0;
-            color: #1a2a3e;
-        }
-
-        /* Education & Experience */
-        .education-item, .experience-item {
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .education-item:last-child, .experience-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .item-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #1a2a3e;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-
-        .item-subtitle {
-            font-weight: 600;
-            color: #4a5568;
-            margin-bottom: 5px;
-        }
-
-        .item-date {
-            color: #6ab0f5;
-            font-weight: 500;
-            font-size: 0.85rem;
-        }
-
-        .item-location {
-            color: #718096;
-            font-size: 0.85rem;
-            margin-bottom: 10px;
-        }
-
-        .item-description {
-            padding-left: 20px;
-            margin-top: 10px;
-        }
-
-        .item-description li {
-            margin-bottom: 5px;
-        }
-
-        /* Certificates Grid */
-        .certificates-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 15px;
-        }
-
-        .cert-item {
-            background: #f8f9fa;
-            padding: 12px 15px;
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-
-        .cert-name {
-            font-weight: 600;
-            color: #1a2a3e;
-        }
-
-        .cert-provider {
-            color: #6ab0f5;
-            font-size: 0.85rem;
-        }
-
-        /* References */
-        .references-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .ref-item {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .ref-name {
-            font-weight: 700;
-            color: #1a2a3e;
-            margin-bottom: 5px;
-        }
-
-        .ref-title {
-            color: #6ab0f5;
-            font-size: 0.85rem;
-            margin-bottom: 8px;
-        }
-
-        .ref-contact {
-            font-size: 0.8rem;
-            color: #718096;
-        }
-
-        .ref-contact a {
-            color: #1a2a3e;
-            text-decoration: none;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #718096;
-            font-size: 0.85rem;
-        }
-
-        /* Buttons */
-        .download-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #1a2a3e;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background 0.2s;
-            margin-top: 15px;
-        }
-
-        .download-btn:hover {
-            background: #2d4a6e;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-            }
-            .contact-info {
-                text-align: left;
-                margin-top: 15px;
-            }
-            .container {
-                padding: 10px;
-            }
-            header {
-                padding: 25px;
-            }
-            .name-title h1 {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav { padding:1rem 1.5rem; }
+  .nav-links { display:none; }
+  .hero { grid-template-columns:1fr; }
+  .hero-right { display:none; }
+  .hero-left { padding:7rem 1.5rem 4rem; }
+  section { padding:4rem 1.5rem; }
+  .about-grid,
+  .project-featured,
+  .edu-certs-grid { grid-template-columns:1fr; }
+  .exp-item { grid-template-columns:1fr; gap:.5rem; }
+  .stats { gap:2.5rem; }
+  footer { flex-direction:column; gap:.5rem; text-align:center; }
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header>
-            <div class="header-content">
-                <div class="name-title">
-                    <h1>Abdulwakeel Ibraheem</h1>
-                    <p>Computational Mathematics Graduate | Machine Learning Enthusiast</p>
-                </div>
-                <div class="contact-info">
-                    <p>📞 +234 810 539 7384</p>
-                    <p>✉️ <a href="mailto:ibraheemabdulwakeel55@gmail.com">ibraheemabdulwakeel55@gmail.com</a></p>
-                    <p>🔗 <a href="https://www.linkedin.com/in/abdulwakeel-ibraheem" target="_blank">LinkedIn</a> | <a href="https://github.com/Morakinyo032" target="_blank">GitHub</a></p>
-                </div>
-            </div>
-        </header>
 
-        <!-- Professional Summary -->
-        <div class="card">
-            <h2 class="section-title">Professional Summary</h2>
-            <p style="font-size: 1rem; line-height: 1.7;">A Graduate of Mathematical Science with specialization in <strong>Computational Mathematics and Modelling</strong>. Proficient in <strong>Python Programming</strong> and has gained resourceful experience in creating <strong>Machine Learning models</strong>. Successfully created <strong>USD/NAIRA Exchange Rate Prediction model</strong> using SARIMA as an undergraduate final year project — demonstrating strong analytical, problem-solving, and independent research capabilities.</p>
-        </div>
+<div class="cursor" id="cursor"></div>
 
-        <!-- Skills -->
-        <div class="card">
-            <h2 class="section-title">Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>📊 Data & Analytics</h3>
-                    <ul>
-                        <li>Advanced Excel & MS Word</li>
-                        <li>Data Analysis & Wrangling</li>
-                        <li>Data Visualization</li>
-                        <li>Business Insight & Intelligence</li>
-                        <li>Database Management</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3>💻 Programming & Tools</h3>
-                    <ul>
-                        <li>Python Programming</li>
-                        <li>Machine Learning</li>
-                        <li>C Programming</li>
-                        <li>Bash Scripting</li>
-                        <li>Prompt Engineering</li>
-                        <li>Figma Proficiency</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3>📐 Mathematical & Analytical</h3>
-                    <ul>
-                        <li>Mathematical Application Skills</li>
-                        <li>Statistical Modeling</li>
-                        <li>Computational Mathematics</li>
-                        <li>Predictive Modeling (SARIMA)</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">AI.dev — Abdulwakeel</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="mailto:ibraheemabdulwakeel55@gmail.com" class="nav-cta">Hire Me</a>
+</nav>
 
-        <!-- Education -->
-        <div class="card">
-            <h2 class="section-title">Education</h2>
-            <div class="education-item">
-                <div class="item-title">
-                    <span>B.Sc. in Mathematics</span>
-                    <span class="item-date">2020 - 2024</span>
-                </div>
-                <div class="item-subtitle">University of Ibadan, Oyo State, Nigeria</div>
-                <p style="margin-top: 8px;">Specialization in <strong>Computational Mathematics and Modelling</strong>. Final year project: USD/NAIRA Exchange Rate Prediction using SARIMA.</p>
-            </div>
-            <div class="education-item">
-                <div class="item-title">
-                    <span>Applied Data Science Certificate</span>
-                </div>
-                <div class="item-subtitle">World Quant University, Washington, D.C., USA</div>
-                <p style="margin-top: 8px;">Comprehensive program in Applied Data Science — covering statistical analysis, machine learning, and data engineering.</p>
-            </div>
-        </div>
-
-        <!-- Certificates -->
-        <div class="card">
-            <h2 class="section-title">Certificates & Supplementary Education</h2>
-            <div class="certificates-grid">
-                <div class="cert-item">
-                    <span class="cert-name">Data Science in Precision Medicine</span>
-                    <span class="cert-provider">Stanford University</span>
-                </div>
-                <div class="cert-item">
-                    <span class="cert-name">AI/ML in Precision Medicine</span>
-                    <span class="cert-provider">Stanford University</span>
-                </div>
-                <div class="cert-item">
-                    <span class="cert-name">Python Essentials 1 & 2</span>
-                    <span class="cert-provider">Cisco Networking Academy</span>
-                </div>
-                <div class="cert-item">
-                    <span class="cert-name">Product Design (UI/UX)</span>
-                    <span class="cert-provider">Future Academy of Africa</span>
-                </div>
-                <div class="cert-item">
-                    <span class="cert-name">Virtual Assistant</span>
-                    <span class="cert-provider">ALX Africa</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Experience -->
-        <div class="card">
-            <h2 class="section-title">Experience</h2>
-            
-            <div class="experience-item">
-                <div class="item-title">
-                    <span>Mathematics & Computer Science Teacher</span>
-                    <span class="item-date">Jan 2026 - Present</span>
-                </div>
-                <div class="item-subtitle">Attanzeel Schools, Ikorodu, Lagos State</div>
-                <ul class="item-description">
-                    <li>Teaching Senior Secondary School Mathematics and Computer Science</li>
-                    <li>Developing curriculum materials and assessment strategies</li>
-                </ul>
-            </div>
-
-            <div class="experience-item">
-                <div class="item-title">
-                    <span>Mathematics, Physics & Computer Science Teacher</span>
-                    <span class="item-date">Nov 2024 - Jan 2026</span>
-                </div>
-                <div class="item-subtitle">De Comfort College, Shagamu, Ogun State</div>
-                <ul class="item-description">
-                    <li>Taught Senior Secondary School Mathematics, Physics, and Computer Science</li>
-                    <li>Implemented interactive teaching methods to improve student engagement</li>
-                </ul>
-            </div>
-
-            <div class="experience-item">
-                <div class="item-title">
-                    <span>IT Intern</span>
-                    <span class="item-date">Oct 2022 - Mar 2023</span>
-                </div>
-                <div class="item-subtitle">Shongai Technologies Ltd, Sango Ota, Ogun State</div>
-                <ul class="item-description">
-                    <li>Maintained computer systems, networks, and peripheral equipment</li>
-                    <li>Performed data backups and restore procedures</li>
-                    <li>Provided technical assistance to end-users on computer-related issues</li>
-                </ul>
-            </div>
-
-            <div class="experience-item">
-                <div class="item-title">
-                    <span>Intern — Correspondence Unit</span>
-                    <span class="item-date">Oct 2023 - Mar 2023</span>
-                </div>
-                <div class="item-subtitle">University of Ibadan, Oyo State</div>
-                <ul class="item-description">
-                    <li>Managed data storage and store management systems</li>
-                    <li>Resolved expenditure records and discrepancies</li>
-                    <li>Maintained organized record keeping and filing systems</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- References -->
-        
-
-        <!-- Footer -->
-        <footer>
-            <p>© 2026 Abdulwakeel Ibraheem | View my work on <a href="https://github.com/Morakinyo032" target="_blank" style="color:#1a2a3e;">GitHub</a></p>
-        </footer>
+<!-- ── HERO ── -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-tag">Available for opportunities</div>
+    <h1>
+      Building systems<br>
+      that <span>think</span> and<br>
+      <span>scale.</span>
+    </h1>
+    <p class="hero-desc">
+      Full-Stack Developer & Computational Mathematician based in Lagos, Nigeria.
+      I build production-grade web applications, data pipelines, and ML-powered tools —
+      currently shipping at Attanzeel Schools.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View my work</a>
+      <a href="#contact" class="btn-outline">Get in touch</a>
     </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="code-line">
+        <span class="code-key">const</span> developer = {<br>
+        &nbsp;&nbsp;<span class="code-key">name:</span> <span class="code-str">"Abdulwakeel"</span>,<br>
+        &nbsp;&nbsp;<span class="code-key">role:</span> <span class="code-str">"Full-Stack Dev"</span>,<br>
+        &nbsp;&nbsp;<span class="code-key">location:</span> <span class="code-str">"Lagos, NG"</span>,<br>
+        &nbsp;&nbsp;<span class="code-key">stack:</span> [<span class="code-str">"Django"</span>, <span class="code-str">"React"</span>],<br>
+        &nbsp;&nbsp;<span class="code-key">ml:</span> <span class="code-bool">true</span>,<br>
+        &nbsp;&nbsp;<span class="code-key">openToWork:</span> <span class="code-bool">true</span>,<br>
+        &nbsp;&nbsp;<span class="code-key">yearsExp:</span> <span class="code-num">3+</span>,<br>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS ── -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">3+</div>
+    <div class="stat-label">Years Experience</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">1</div>
+    <div class="stat-label">Production App Deployed</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">6+</div>
+    <div class="stat-label">Certifications</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">B.Sc.</div>
+    <div class="stat-label">Mathematics, Univ. of Ibadan</div>
+  </div>
+</div>
+
+<!-- ── ABOUT ── -->
+<section class="about reveal" id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="section-label">About me</div>
+      <h2>Maths meets<br>engineering.</h2>
+      <p>
+        I'm a <strong>Computational Mathematician</strong> turned software developer with a passion for
+        building systems that are both mathematically rigorous and practically impactful.
+        My background in applied mathematics shapes how I approach architecture, data flows, and algorithmic thinking.
+      </p>
+      <p>
+        At Attanzeel Schools, I designed and shipped a <strong>full-stack Computer-Based Testing platform</strong>
+        from scratch — now actively used by teachers and students for daily examinations.
+        The system includes AI question generation, a local-to-cloud sync engine, offline exam mode,
+        and a multi-tier role system with approval workflows.
+      </p>
+      <p>
+        I'm passionate about applying <strong>machine learning</strong> and <strong>data science</strong>
+        to real-world problems — from educational analytics to business intelligence.
+        Currently exploring opportunities in software engineering, data science, and ML engineering.
+      </p>
+    </div>
+    <div class="about-aside">
+      <div class="aside-block">
+        <h4>Education</h4>
+        <p><strong>B.Sc. Mathematics</strong><br>University of Ibadan, 2024<br>Computational Mathematics & Modelling</p>
+      </div>
+      <div class="aside-block">
+        <h4>Currently</h4>
+        <p>ICT & Mathematics Instructor<br>Attanzeel Schools, Lagos<br>Jan 2026 – Present</p>
+      </div>
+      <div class="aside-block">
+        <h4>Languages</h4>
+        <p>English (Fluent) · Yoruba (Native) · Arabic (Basic)</p>
+      </div>
+      <div class="aside-block">
+        <h4>Location</h4>
+        <p>Lagos, Nigeria<br>Open to remote & relocation</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROJECTS ── -->
+<section class="projects reveal" id="projects">
+  <div class="projects-inner">
+    <div class="section-label">Work</div>
+    <h2>Things I've built.</h2>
+
+    <!-- Featured: CBT -->
+    <div class="project-featured">
+      <div class="project-screenshot">
+        <div class="app-mockup">
+          <div class="mockup-bar">
+            <div class="mockup-dot" style="background:#e63946"></div>
+            <div class="mockup-dot" style="background:#f4a261"></div>
+            <div class="mockup-dot" style="background:#74c69d"></div>
+            <span style="font-family:var(--mono);font-size:.6rem;color:rgba(255,255,255,.3);margin-left:.5rem">attanzeelschools.pythonanywhere.com</span>
+          </div>
+          <div class="mockup-content">
+            <div class="mockup-stat-row">
+              <div class="mockup-stat">5<br><span style="font-size:.5rem;opacity:.6">EXAMS</span></div>
+              <div class="mockup-stat">5<br><span style="font-size:.5rem;opacity:.6">ACTIVE</span></div>
+              <div class="mockup-stat">11<br><span style="font-size:.5rem;opacity:.6">STUDENTS</span></div>
+              <div class="mockup-stat">2<br><span style="font-size:.5rem;opacity:.6">ATTEMPTS</span></div>
+            </div>
+            <div class="mockup-row medium"></div>
+            <div class="mockup-row short"></div>
+            <div class="mockup-row medium"></div>
+            <div class="mockup-row" style="width:40%"></div>
+          </div>
+        </div>
+      </div>
+      <div class="project-info">
+        <div class="project-badge">🚀 Live in Production</div>
+        <h3>Attanzeel CBT Platform</h3>
+        <p>
+          A full-stack Computer-Based Testing system built from scratch and deployed at Attanzeel Schools.
+          Manages the entire exam lifecycle — from question authoring to grading and reporting — for
+          multiple user roles across a school network.
+        </p>
+        <div class="tech-pills">
+          <span class="pill">Python</span>
+          <span class="pill">Django</span>
+          <span class="pill">JavaScript</span>
+          <span class="pill">SQLite</span>
+          <span class="pill">Gemini API</span>
+          <span class="pill">MathJax</span>
+          <span class="pill">PythonAnywhere</span>
+        </div>
+        <ul class="feature-list">
+          <li>4-tier RBAC: Admin, HOD, Teacher, Student with separate dashboards</li>
+          <li>AI question generation via Google Gemini API (MCQ & True/False)</li>
+          <li>HOD approval workflow before exams go live to students</li>
+          <li>Local ↔ cloud sync engine for offline exam mode over school WiFi</li>
+          <li>Entry assessment portal for new student admissions</li>
+          <li>LaTeX/MathJax rendering for STEM subjects</li>
+          <li>Bulk import from CSV, Excel, Word & PDF documents</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS ── -->
+<section class="skills-section reveal" id="skills">
+  <div class="skills-inner">
+    <div class="section-label">Capabilities</div>
+    <h2>What I work with.</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-card-icon">⚙️</div>
+        <h4>Backend Development</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Django</span>
+          <span class="skill-tag">REST APIs</span>
+          <span class="skill-tag">SQLite</span>
+          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">Bash</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon">🎨</div>
+        <h4>Frontend Development</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">HTML/CSS</span>
+          <span class="skill-tag">MathJax</span>
+          <span class="skill-tag">Figma</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon">🤖</div>
+        <h4>Machine Learning & Data</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">ML Modelling</span>
+          <span class="skill-tag">Data Wrangling</span>
+          <span class="skill-tag">Data Viz</span>
+          <span class="skill-tag">Prompt Engineering</span>
+          <span class="skill-tag">Pandas</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon">📐</div>
+        <h4>Mathematics</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Computational Maths</span>
+          <span class="skill-tag">Mathematical Modelling</span>
+          <span class="skill-tag">Applied Analysis</span>
+          <span class="skill-tag">Statistics</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon">☁️</div>
+        <h4>DevOps & Tools</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">PythonAnywhere</span>
+          <span class="skill-tag">Linux/Bash</span>
+          <span class="skill-tag">C Programming</span>
+          <span class="skill-tag">Advanced Excel</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon">🔗</div>
+        <h4>Integrations & APIs</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Google Gemini API</span>
+          <span class="skill-tag">REST</span>
+          <span class="skill-tag">Sync Engines</span>
+          <span class="skill-tag">Email (SMTP)</span>
+          <span class="skill-tag">LaTeX</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ── -->
+<section class="experience reveal" id="experience">
+  <div class="exp-inner">
+    <div class="section-label">Experience</div>
+    <h2>Where I've worked.</h2>
+
+    <div class="exp-item">
+      <div class="exp-date">Jan 2026<br>Present</div>
+      <div class="exp-content">
+        <h3>ICT & Mathematics Instructor</h3>
+        <div class="exp-org">At-Tanzeel Schools — Ikorodu, Lagos, Nigeria</div>
+        <ul class="exp-bullets">
+          <li>Designed and deployed a production full-stack CBT web application currently used for live school examinations</li>
+          <li>Built role-based access (Admin, HOD, Teacher, Student) with separate dashboards and approval workflows</li>
+          <li>Integrated Google Gemini AI for automated question generation across subjects</li>
+          <li>Engineered local ↔ cloud sync engine for offline exam capability over school WiFi</li>
+          <li>Built entry assessment portal for new student admissions with randomised question pools</li>
+          <li>Delivered Mathematics and ICT curriculum across multiple class levels</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Jan 2022<br>Mar 2022</div>
+      <div class="exp-content">
+        <h3>IT Support Intern</h3>
+        <div class="exp-org">Shongai Technologies Ltd — Sango Ota, Ogun State, Nigeria</div>
+        <ul class="exp-bullets">
+          <li>Maintained computer systems, network, and peripheral equipment ensuring high operational uptime</li>
+          <li>Executed data backup and restore procedures safeguarding critical company data</li>
+          <li>Provided technical support to end-users, improving system functionality and productivity</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EDUCATION & CERTS ── -->
+<section class="edu-certs reveal" id="education">
+  <div class="edu-certs-inner">
+    <div class="edu-certs-grid">
+      <div>
+        <div class="section-label">Education</div>
+        <h2>Academic<br>background.</h2>
+        <div class="edu-item">
+          <h3>B.Sc. Mathematics</h3>
+          <p>University of Ibadan, Oyo State<br>Oct 2017 – Apr 2024<br>
+          <em>Computational Mathematics · Mathematical Modelling · Applied Analysis</em></p>
+        </div>
+        <div class="edu-item">
+          <h3>Certificate in Applied Data Science</h3>
+          <p>WorldQuant University, Washington D.C. (Remote)<br>Jan 2022 – Dec 2022<br>
+          <em>Statistical Modelling · ML · Python for Data Science</em></p>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Certifications</div>
+        <h2>Credentials.</h2>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <p><strong>Data Science in Precision Medicine</strong>Stanford Deep Data Research Center, Stanford University</p>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <p><strong>AI/ML in Precision Medicine</strong>Stanford Deep Data Research Center, Stanford University</p>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <p><strong>JavaScript Essentials</strong>Cisco Networking Academy</p>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <p><strong>Python Essentials 1 & 2</strong>Cisco Networking Academy</p>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <p><strong>Product Design (UI/UX)</strong>Future Academy of Africa</p>
+        </div>
+        <div class="cert-item">
+          <div class="cert-dot"></div>
+          <p><strong>Virtual Assistant</strong>ALX Africa</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section class="contact reveal" id="contact">
+  <div class="contact-inner">
+    <div class="section-label" style="justify-content:center;color:var(--mint)">Get in touch</div>
+    <h2>Let's build<br>something together.</h2>
+    <p>
+      Open to full-time roles, freelance projects, and collaborations in software engineering,
+      data science, and ML. Based in Lagos — available remotely worldwide.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:ibraheemabdulwakeel55@gmail.com" class="contact-link">✉ Email</a>
+      <a href="https://linkedin.com/in/abdulwakeel-ibraheem" class="contact-link" target="_blank">LinkedIn</a>
+      <a href="https://github.com/Ibraheem032" class="contact-link" target="_blank">GitHub</a>
+      <a href="tel:+2348105397384" class="contact-link">📱 Call</a>
+    </div>
+    <div class="contact-email">ibraheemabdulwakeel55@gmail.com</div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>© 2026 Abdulwakeel Ibraheem. All rights reserved.</p>
+  <p>Built with HTML · CSS · JavaScript</p>
+</footer>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top  = e.clientY + 'px';
+});
+document.querySelectorAll('a, button, .skill-card, .project-featured').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Active nav link
+const sections = document.querySelectorAll('section[id], .stats');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--sage)' : '';
+  });
+});
+</script>
 </body>
 </html>
